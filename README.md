@@ -1,50 +1,179 @@
-# Welcome to your Expo app 👋
+# 🌍 ONG CONNECT
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+  <img src="https://img.shields.io/badge/React%20Native-0.76-blue?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/Expo-000000?style=for-the-badge&logo=expo" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript" />
+</p>
 
-## Get started
+---
 
-1. Install dependencies
+## 💚 Sobre o Projeto
 
-   ```bash
-   npm install
-   ```
+O **ONG CONNECT** é um aplicativo mobile desenvolvido para conectar voluntários a projetos sociais e ONGs.
 
-2. Start the app
+A plataforma permite:
 
-   ```bash
-   npx expo start
-   ```
+✅ Explorar projetos sociais  
+✅ Visualizar informações de ONGs  
+✅ Editar interesses  
+✅ Acompanhar metas de arrecadação  
+✅ Navegação moderna e intuitiva  
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# 📱 Preview
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🔐 Tela de Login
 
-## Get a fresh project
+- Login moderno
+- Campo de senha com visualização
+- Interface responsiva
+- Background estilizado
 
-When you're ready, run:
+---
+
+## 🏠 Dashboard
+
+- Painel do voluntário
+- Cartão de boas-vindas
+- Estatísticas
+- Navegação elegante
+
+---
+
+## 🔎 Explorar Projetos
+
+- Lista de ONGs
+- Cards interativos
+- Barras de progresso
+- Projetos sociais variados
+
+---
+
+## 👤 Perfil
+
+- Foto do usuário
+- Informações pessoais
+- Modal de interesses
+- Configurações
+
+---
+
+# 🚀 Tecnologias Utilizadas
 
 ```bash
-npm run reset-project
+React Native
+Expo
+TypeScript
+React Navigation
+Expo Vector Icons
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+# 📂 Estrutura do Projeto
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+📦 ONG-CONNECT
+ ┣ 📂 assets
+ ┃ ┗ 📂 images
+ ┣ 📂 components
+ ┃ ┗ 📜 ONGCard.tsx
+ ┣ 📂 screen
+ ┃ ┣ 📜 dashboard.tsx
+ ┃ ┣ 📜 PerfilScreen.tsx
+ ┃ ┗ 📜 LoginScreen.tsx
+ ┣ 📜 projeto.tsx
+ ┣ 📜 index.tsx
+ ┗ 📜 README.md
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+# ⚙️ Instalação
 
-Join our community of developers creating universal apps.
+## 1️⃣ Clone o projeto
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+git clone https://github.com/seuusuario/ong-connect.git
+```
+
+## 2️⃣ Entre na pasta
+
+```bash
+cd ong-connect
+```
+
+## 3️⃣ Instale as dependências
+
+```bash
+npm install
+```
+
+## 4️⃣ Execute o projeto
+
+```bash
+npx expo start
+```
+
+---
+
+# ✨ Funcionalidades
+
+```bash
+✔️ Login com senha
+✔️ Dashboard interativo
+✔️ Perfil moderno
+✔️ Cards animados
+✔️ Barra de progresso
+✔️ Modal de interesses
+✔️ Navegação por abas
+✔️ Layout responsivo
+```
+
+---
+
+# 🎨 Design
+
+```bash
+• Tons de verde
+• Cards modernos
+• Sombras suaves
+• Bordas arredondadas
+• Interface minimalista
+```
+
+---
+
+# 🛡️ Segurança
+
+```bash
+✔️ Navegação protegida
+✔️ Validação de campos
+✔️ Controle de autenticação
+```
+
+---
+
+# 👩‍💻 Desenvolvedora
+
+```bash
+Raissa Fernandes 💚
+```
+
+---
+
+# 📄 Licença
+
+```bash
+Projeto desenvolvido para fins educacionais.
+```
+
+---
+
+# ⭐ ONG CONNECT
+
+```bash
+"Conectando pessoas a causas que transformam vidas."
+```
