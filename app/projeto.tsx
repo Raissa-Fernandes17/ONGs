@@ -1,227 +1,446 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import {
-    StyleSheet, Text, View, Image, TextInput,
-    TouchableOpacity, SafeAreaView, ScrollView, FlatList
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    TouchableOpacity,
+    SafeAreaView,
+    ScrollView,
+    FlatList,
+    Platform,
+    ActivityIndicator,
+    Alert,
+    ImageBackground
 } from 'react-native';
-import { useRouter } from 'expo-router';
 
-const COLORS = { primary: '#2E7D32', secondary: '#0b7c11', bg: '#f4f7f5', dark: '#101411', muted: '#666' };
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { Ionicons } from '@expo/vector-icons';
+
+import DashboardScreen from './screen/dashboard';
+
+import PerfilScreen from './screen/PerfilScreen';
+
+
+import ONGCard from './components/ONGCard';
+
+const COLORS = {
+    primary: '#2E7D32',
+    secondary: '#0b7c11',
+    bg: '#f4f7f5',
+    dark: '#101411',
+    muted: '#666',
+    white: '#fff'
+};
+
+const Tab = createBottomTabNavigator();
 
 const PROJETOS = [
+
     {
         id: '1',
         titulo: 'Educação Solidária',
         descricao: 'Apoio escolar e material para crianças da zona rural.',
-        imagem: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=400',
+        imagem:
+            'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=400',
         meta: 80,
     },
+
     {
         id: '2',
         titulo: 'Alimentação Já',
         descricao: 'Distribuição de marmitas e cestas básicas para famílias carentes.',
-        imagem: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400',
+        imagem:
+            'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=400',
         meta: 45,
     },
+
     {
         id: '3',
         titulo: 'Tecnologia Comunitária',
         descricao: 'Inclusão digital e cursos de programação em periferias.',
-        imagem: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400',
+        imagem:
+            'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400',
         meta: 20,
+    },
+
+    {
+        id: '4',
+        titulo: 'Saúde Para Todos',
+        descricao: 'Atendimento médico gratuito e campanhas de vacinação.',
+        imagem:
+            'https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=400',
+        meta: 65,
+    },
+
+    {
+        id: '5',
+        titulo: 'Amor Animal',
+        descricao: 'Resgate e adoção de animais abandonados.',
+        imagem:
+            'https://images.unsplash.com/photo-1517849845537-4d257902454a?q=80&w=400',
+        meta: 90,
+    },
+
+    {
+        id: '6',
+        titulo: 'Plantando o Futuro',
+        descricao: 'Projetos de reflorestamento e preservação ambiental.',
+        imagem:
+            'https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=400',
+        meta: 55,
+    },
+
+    {
+        id: '7',
+        titulo: 'Esporte e Vida',
+        descricao: 'Aulas esportivas gratuitas para jovens em comunidades.',
+        imagem:
+            'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=400',
+        meta: 72,
+    },
+
+    {
+        id: '8',
+        titulo: 'Mulheres Fortes',
+        descricao: 'Capacitação profissional e apoio psicológico para mulheres.',
+        imagem:
+            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400',
+        meta: 38,
     }
+
 ];
 
-const ProjetosScreen = () => {
-    const router = useRouter();
+function ExplorarScreen() {
+
     const [busca, setBusca] = useState('');
 
-const renderItem = ({ item }: any) => (
-        <View style={styles.card}>
-            <Image source={{ uri: item.imagem }} style={styles.cardImage} />
+    const [loading, setLoading] = useState(true);
 
-            <View style={styles.cardContent}>
-                <Text style={styles.cardTitle}>{item.titulo}</Text>
-                <Text style={styles.cardDesc}>{item.descricao}</Text>
+    useEffect(() => {
 
+        setTimeout(() => {
 
-                <View style={styles.progressLabel}>
-                    <Text style={styles.progressText}>Meta alcançada</Text>
-                    <Text style={styles.progressValue}>{item.meta}%</Text>
-                </View>
-                <View style={styles.progressBarBg}>
-                    <View style={[styles.progressBarFill, { width: `${item.meta}%` }]} />
-                </View>
+            setLoading(false);
 
-                <TouchableOpacity
-                    style={styles.btnCard}
-                    onPress={() => console.log("Apoiar:", item.titulo)}
-                >
-                    <Text style={styles.btnCardText}>Apoiar Projeto</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
+        }, 2000);
+
+    }, []);
+
+    const projetosFiltrados = PROJETOS.filter((item) =>
+        item.titulo.toLowerCase().includes(busca.toLowerCase())
     );
+
+    const renderItem = ({ item }: any) => (
+
+        <ONGCard
+            titulo={item.titulo}
+            descricao={item.descricao}
+            imagem={item.imagem}
+            meta={item.meta}
+            onPress={() =>
+                Alert.alert(
+                    item.titulo,
+                    item.descricao
+                )
+            }
+        />
+
+    );
+
+    if (loading) {
+
+        return (
+
+            <View style={styles.loadingContainer}>
+
+                <ActivityIndicator
+                    size="large"
+                    color={COLORS.primary}
+                />
+
+                <Text style={styles.loadingText}>
+                    Carregando ONGs...
+                </Text>
+
+            </View>
+
+        );
+    }
 
     return (
+
         <SafeAreaView style={styles.container}>
 
-            <View style={styles.navbar}>
-                <TouchableOpacity onPress={() => router.back()}>
-                    <Text style={styles.backArrow}>←</Text>
-                </TouchableOpacity>
-                <View style={styles.searchContainer}>
-                    <TextInput
-                        placeholder="Buscar causas..."
-                        style={styles.searchInput}
-                        value={busca}
-                        onChangeText={setBusca}
-                    />
+            {/* HEADER */}
+            <ImageBackground
+                source={{
+                    uri: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200'
+                }}
+                style={styles.header}
+                imageStyle={styles.headerImage}
+            >
+
+                <View style={styles.overlay}>
+
+                    <Text style={styles.heroTitle}>
+                        Explore Projetos 🌍
+                    </Text>
+
+                    <Text style={styles.heroSub}>
+                        Faça parte de causas incríveis
+                    </Text>
+
+                    {/* PESQUISA */}
+                    <View style={styles.searchWrapper}>
+
+                        <Ionicons
+                            name="search"
+                            size={20}
+                            color="#777"
+                        />
+
+                        <TextInput
+                            placeholder="Buscar causas..."
+                            style={styles.searchInput}
+                            value={busca}
+                            onChangeText={setBusca}
+                            placeholderTextColor="#999"
+                        />
+
+                    </View>
+
                 </View>
-                <View style={styles.logoBadge}><Text style={styles.logoBadgeText}>C</Text></View>
+
+            </ImageBackground>
+
+            {/* CATEGORIAS */}
+            <View style={styles.categoriesRow}>
+
+                <TouchableOpacity style={styles.categoryBtn}>
+                    <Text style={styles.categoryText}>
+                        🌱 Ambiente
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.categoryBtn}>
+                    <Text style={styles.categoryText}>
+                        📚 Educação
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.categoryBtn}>
+                    <Text style={styles.categoryText}>
+                        ❤️ Saúde
+                    </Text>
+                </TouchableOpacity>
+
             </View>
 
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <Text style={styles.pageTitle}>Causas que precisam do seu <Text style={{ color: COLORS.primary }}>apoio</Text></Text>
+            {/* LISTA */}
+            <FlatList
+                data={projetosFiltrados}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.listContent}
+            />
 
-
-                <FlatList
-                    data={PROJETOS}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    scrollEnabled={false} // Scroll é controlado pelo ScrollView pai
-                    contentContainerStyle={{ gap: 20 }}
-                />
-            </ScrollView>
         </SafeAreaView>
+
     );
-};
+}
+
+export default function Projeto() {
+
+    return (
+
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+
+                headerShown: false,
+
+                tabBarActiveTintColor: COLORS.primary,
+
+                tabBarInactiveTintColor: '#777',
+
+                tabBarStyle: {
+                    height: 70,
+                    paddingBottom: 10,
+                    paddingTop: 8,
+                    backgroundColor: '#fff',
+                    borderTopWidth: 0,
+                    elevation: 10,
+                },
+
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                    fontWeight: '600'
+                },
+
+                tabBarIcon: ({ color, size }) => {
+
+                    let iconName: any;
+
+                    if (route.name === 'Dashboard') {
+
+                        iconName = 'home';
+
+                    }
+
+                    else if (route.name === 'Explorar') {
+
+                        iconName = 'search';
+
+                    }
+
+                    else if (route.name === 'Perfil') {
+
+                        iconName = 'person';
+
+                    }
+
+                    return (
+
+                        <Ionicons
+                            name={iconName}
+                            size={size}
+                            color={color}
+                        />
+
+                    );
+                },
+            })}
+        >
+
+            <Tab.Screen
+                name="Dashboard"
+                component={DashboardScreen}
+                initialParams={{
+                    userName: 'Raissa',
+                    voluntarioId: '12345'
+                }}
+            />
+
+            <Tab.Screen
+                name="Explorar"
+                component={ExplorarScreen}
+            />
+
+            <Tab.Screen
+                name="Perfil"
+                component={PerfilScreen}
+                initialParams={{
+                    userName: 'Raissa Fernandes'
+                }}
+            />
+
+        </Tab.Navigator>
+
+    );
+}
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: COLORS.bg
     },
-    navbar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 15,
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderColor: '#eee'
+
+    header: {
+        height: 250,
+        justifyContent: 'center'
     },
-    backArrow: {
-        fontSize: 24,
-        color: COLORS.primary,
-        marginRight: 10
+
+    headerImage: {
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30
     },
-    searchContainer: {
+
+    overlay: {
         flex: 1,
-        marginRight: 10
-    },
-    searchInput: {
-        backgroundColor: '#f1f1f1',
-        paddingVertical: 8,
-        paddingHorizontal: 15,
-        borderRadius: 20,
-        fontSize: 14
-    },
-    logoBadge: {
-        width: 35,
-        height: 35,
-        backgroundColor: COLORS.primary,
-        borderRadius: 10,
+        backgroundColor: 'rgba(0,0,0,0.45)',
         justifyContent: 'center',
-        alignItems: 'center'
+        paddingHorizontal: 20
     },
-    logoBadgeText: {
+
+    heroTitle: {
         color: '#fff',
-        fontWeight: 'bold'
-    },
-
-    scrollContent: {
-        padding: 20
-    },
-    pageTitle: {
-        fontSize: 26,
+        fontSize: 32,
         fontWeight: 'bold',
-        color: '#333'
-        , marginBottom: 25
-
-        , textAlign: 'center'
-    },
-
-    // --- ESTILO DOS CARDS (Inspirado na Foto 2) ---
-    card: {
-        backgroundColor: '#fff',
-        borderRadius: 20,
-        overflow: 'hidden',
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
         marginBottom: 10
     },
-    cardImage: {
-        width: '100%',
-        height: 180
-    },
-    cardContent: {
-        padding: 20
-    },
-    cardTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 8
-    },
-    cardDesc: {
-        fontSize: 14,
-        color: COLORS.muted,
-        marginBottom: 15,
-        lineHeight: 20
+
+    heroSub: {
+        color: '#eee',
+        fontSize: 16,
+        marginBottom: 25
     },
 
-    // Barra de progresso
-    progressLabel: {
+    searchWrapper: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 5
-    },
-    progressText: {
-        fontSize: 12,
-        color: COLORS.muted
-    },
-    progressValue: {
-        fontSize: 12,
-        fontWeight: 'bold'
-        , color: COLORS.primary
-    },
-    progressBarBg: {
-        height: 8,
-        backgroundColor: '#eee',
-        borderRadius: 4,
-        marginBottom: 20
-    },
-    progressBarFill: {
-        height: 8,
-        backgroundColor: COLORS.primary,
-        borderRadius: 4
-    },
-
-    btnCard: {
-        backgroundColor: COLORS.secondary,
-        paddingVertical: 14,
-        borderRadius: 12,
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: COLORS.dark
+        backgroundColor: '#fff',
+        borderRadius: 18,
+        paddingHorizontal: 15,
+        height: 55
     },
-    btnCardText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 16
-    }
-});
 
-export default ProjetosScreen;
+    searchInput: {
+        flex: 1,
+        marginLeft: 10,
+        fontSize: 15,
+        color: '#333'
+    },
+
+    categoriesRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginTop: 20,
+        marginBottom: 10,
+        paddingHorizontal: 10
+    },
+
+    categoryBtn: {
+        backgroundColor: '#fff',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 18,
+
+        elevation: 3,
+
+        shadowColor: '#000',
+
+        shadowOpacity: 0.08,
+
+        shadowRadius: 5
+    },
+
+    categoryText: {
+        fontWeight: '600',
+        color: '#333',
+        fontSize: 13
+    },
+
+    listContent: {
+        padding: 20,
+        paddingBottom: 40
+    },
+
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.bg
+    },
+
+    loadingText: {
+        marginTop: 15,
+        fontSize: 16,
+        color: COLORS.primary,
+        fontWeight: '600'
+    }
+
+});
